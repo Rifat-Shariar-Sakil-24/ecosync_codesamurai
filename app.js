@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const authRoutes = require('./routes/authRoutes.js');
 const rbacRoutes = require('./routes/rbacRoutes.js');
+const userRoutes = require('./routes/userRoutes.js');
 
 
 
@@ -35,7 +36,7 @@ async function connectDB() {
 
 
 app.get('/', function(req,res){
-    
+    db.collection.dropIndexes()
 })
 
 
@@ -44,6 +45,7 @@ app.get('/', function(req,res){
 
 app.use(authRoutes);
 app.use(rbacRoutes);
+app.use(userRoutes);
 
 
 app.listen(process.env.PORT || 4000,function(){
