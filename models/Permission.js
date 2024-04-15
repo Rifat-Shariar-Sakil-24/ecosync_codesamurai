@@ -1,26 +1,19 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
+const permissionSchema = new mongoose.Schema({
+  endpoint: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  endpointdescription: {
+    type: String,
+    required: true,
+  },
+});
 
- const permissionSchema = new mongoose.Schema({
- 
-    permissionname: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    permissiondescription:{
-         type: String,
-         required: true
-    }
- });
- const Permission = new mongoose.model('permission', permissionSchema);
+const Permission = new mongoose.model("permission", permissionSchema);
 
-
-
-
-
-
- 
- module.exports = {
-    Permission
- }
+module.exports = {
+  Permission,
+};
