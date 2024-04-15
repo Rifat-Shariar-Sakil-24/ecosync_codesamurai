@@ -4,26 +4,26 @@ const { Permission } = require('./Permission');
 const { Role } = require('./Role');
 
 const rolePermissionSchema = new mongoose.Schema({
-    roleId: {
+    rolename: {
         type: String,
         ref: 'Role',
         required: true,
         unique: true,
         validate: {
-            validator: async function(roleId) {
-                const role = await Role.findOne({ rolename: roleId });
+            validator: async function(rolename) {
+                const role = await Role.findOne({ rolename: rolename });
                 return !!role; 
             },
             message: props => `${props.value} is not a valid rolename`
         }
     },
-    permissionIds: {
+    permissionnames: {
         type: [{
             type: String,
             ref: 'Permission',
             validate: {
-                validator: async function(permissionId) {
-                    const permission = await Permission.findOne({ permissionname: permissionId });
+                validator: async function(permissionname) {
+                    const permission = await Permission.findOne({ permissionname: permissionname });
                     return !!permission; 
                 },
                 message: props => `${props.value} is not a valid permissionname`

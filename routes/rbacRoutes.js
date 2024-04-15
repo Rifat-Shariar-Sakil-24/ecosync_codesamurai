@@ -29,30 +29,29 @@ app.post("/rbac/roles", async function (req, res) {
 });
 
 
-
 app.post("/rbac/users/:userId/roles", async function (req, res) {
   const username = req.params.userId;
   const rolename = req.body.rolename;
 
+  const validUser = await User.findOne({ username: username });
+  const validRole = await Role.findOne({ rolename: rolename });
 
-  const validUser = await User.findOne({username:username});
-  if(!validUser) res.status(500).send('user not found');
-
-  const validRole = await Role.findOne({rolename:rolename});
-  if(!validRole) res.status(500).send('Role not found');
+  if (!validUser || !validRole) {
+    return res.status(404).send("User or Role not found");
+  }
 
   const data = {
     username: username,
-    rolename: rolename
+    rolename: rolename,
   };
 
   try {
     const newUserRole = new UserRole(data);
     await newUserRole.save();
-    res.status(201).send("user has been assigned to role");
+    return res.status(201).send("User has been assigned to role");
   } catch (error) {
-    //console.log(error);
-    res.status(401).send("error occurred while assinging role to user");
+    console.error(error);
+    return res.status(500).send("Error occurred while assigning role to user");
   }
 });
 
@@ -86,16 +85,16 @@ app.get('/rbac/permissions', async function(req,res){
 
 
 app.post('/rbac/roles/:roleId/permissions', async function(req,res){
-  const roleId = req.params.roleId;
-  const permissionId = req.body.permissionId;
+  const rolename = req.params.roleId;
+  const permissionname = req.body.permissionname;
 
   const data = {
-    roleId: roleId,
-    permissionIds: [permissionId]
+    rolename: rolename,
+    permissionnames: [permissionname]
   }
 
   try {
-    const existRolePermission = await RolePermission.findOne({roleId:roleId});
+    const existRolePermission = await RolePermission.findOne({rolename:rolename});
     console.log(existRolePermission);
     if(!existRolePermission){
       const newRolePermission = await RolePermission(data);
@@ -103,7 +102,7 @@ app.post('/rbac/roles/:roleId/permissions', async function(req,res){
     }
     else{
       
-      existRolePermission.permissionIds.push(permissionId);
+      existRolePermission.permissionnames.push(permissionname);
       await existRolePermission.save();
     } 
     res.status(201).send('permission assigned to role'); 
@@ -120,13 +119,13 @@ app.post('/rbac/roles/:roleId/permissions', async function(req,res){
 
 
 app.get('/rbac/roles/:roleId/permissions', async function(req,res){
-  const roleId = req.params.roleId;
+  const rolename = req.params.roleId;
   try {
-    const roleExists = await Role.findOne({rolename:roleId});
+    const roleExists = await Role.findOne({rolename:rolename});
     if(!roleExists){
       res.status(500).send('no such role found');
     }
-    const permissionsOfaRole = await RolePermission.find({roleId:roleId});
+    const permissionsOfaRole = await RolePermission.find({rolename:rolename});
     res.status(201).send(permissionsOfaRole);
   } catch (error) {
     res.status(401).send('error occurred while fetching permissions of role');

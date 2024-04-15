@@ -4,35 +4,34 @@ const { UserRole } = require("../models/UserRole");
 const { Role } = require("../models/Role");
 const app = express.Router();
 
-// app.get("/users/roles", async function (req, res) {
-//   try {
-//     const allUserRoles = await UserRole.find({});
-//     const tobePassed = [];
+app.get("/users/roles", async function (req, res) {
+  try {
+    const allUserRoles = await UserRole.find({});
+    const tobePassed = [];
 
-//     await Promise.all(
-//       allUserRoles.map(async function (userRole) {
-//         const userId = userRole.userId;
-//         const userInfo = await User.findOne({ _id: userId });
+    await Promise.all(
+      allUserRoles.map(async function (userRole) {
+        const username = userRole.username;
+        const userInfo = await User.findOne({ username:username });
 
-//         const roleId = userRole.roleId;
-//         const roleInfo = await Role.findOne({ _id: roleId });
+        const rolename = userRole.rolename;
+        const roleInfo = await Role.findOne({ rolename:rolename });
 
-//         const object = {
-//           userId: userId,
-//           username: userInfo.username,
-//           roleId: roleId,
-//           rolename: roleInfo.rolename,
-//         };
+        const object = {
+          
+          username: userInfo.username,
+          rolename: roleInfo.rolename,
+        };
 
-//         tobePassed.push(object);
-//       })
-//     );
-//     res.status(201).send(tobePassed);
-//   } catch (error) {
-//     console.error("Error occurred while fetching user roles:", error);
-//     res.status(401).send("Error occurred while fetching user roles");
-//   }
-// });
+        tobePassed.push(object);
+      })
+    );
+    res.status(201).send(allUserRoles);
+  } catch (error) {
+    console.error("Error occurred while fetching user roles:", error);
+    res.status(401).send("Error occurred while fetching user roles");
+  }
+});
 
 app.get("/users", async function (req, res) {
   try {
@@ -43,30 +42,32 @@ app.get("/users", async function (req, res) {
   }
 });
 
-// app.get("/users/:userId", async function (req, res) {
-//   const userId = req.params.userId;
+app.get("/users/:userId", async function (req, res) {
+  const username =  req.params.userId;
 
-//   try {
-//     const userInfo = await User.find({ _id: userId });
-//     res.status(201).send(userInfo);
-//   } catch (error) {
-//     res.status(401).send("error occurred while fetching user info");
-//   }
-// });
+  try {
+    const userInfo = await User.find({ username});
+    res.status(201).send(userInfo);
+  } catch (error) {
+    res.status(401).send("error occurred while fetching user info");
+  }
+});
 
-// app.put("/users/:userId", async function (req, res) {
-//   const userId = req.params.userId;
-//   const tobeupdatedBody = {
-//     username: req.body.username,
-//   };
+app.put("/users/:userId", async function (req, res) {
+  const username = req.params.userId;
+  const tobeupdatedBody = {
+    username: req.body.username,
+  };
 
-//   try {
-//     await User.findByIdAndUpdate({ _id: userId }, tobeupdatedBody);
-//     res.status(201).send("user info updated");
-//   } catch (error) {
-//     res.status(401).send("error occurred while updating user info");
-//   }
-// });
+  try {
+    
+    await User.findOneAndUpdate({ username}, tobeupdatedBody);
+    res.status(201).send("user info updated");
+  } catch (error) {
+    console.log(error);
+    res.status(401).send("error occurred while updating user info");
+  }
+});
 
 // app.delete("/users/:userId", async function (req, res) {
 //   const userId = req.params.userId;
@@ -91,18 +92,25 @@ app.post("/users", async function (req, res) {
   }
 });
 
-// app.put("/users/:userId/roles", async function (req, res) {
-//   const userId = req.params.userId.toString();
-//   const roleId = req.body.roleId;
+app.put("/users/:userId/roles", async function (req, res) {
+  const username = req.params.userId;
+  const rolename = req.body.rolename;
 
-//   try {
-//     await UserRole.findOneAndUpdate({ userId: userId }, { roleId: roleId });
-//     res.status(201).send("role updated");
-//   } catch (error) {
-//     console.log(error);
-//     res.status(401).send("error occurred while updating user role");
-//   }
-// });
+  const validUser = await User.findOne({ username: username });
+  const validRole = await Role.findOne({ rolename: rolename });
+
+  if (!validUser || !validRole) {
+    return res.status(404).send("User or Role not found");
+  }
+
+  try {
+    await UserRole.findOneAndUpdate({ username }, { rolename });
+    res.status(201).send("role updated");
+  } catch (error) {
+    console.log(error);
+    res.status(401).send("error occurred while updating user role");
+  }
+});
 
 
 module.exports = app;
