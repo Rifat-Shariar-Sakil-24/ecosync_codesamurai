@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const permissionSchema = new mongoose.Schema({
-  endpoint: {
+  permissionname: {
     type: String,
     required: true,
     unique: true,
   },
-  endpointdescription: {
+  permissiondescription: {
     type: String,
     required: true,
   },
