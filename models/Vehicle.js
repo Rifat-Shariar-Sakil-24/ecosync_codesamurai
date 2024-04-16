@@ -18,67 +18,8 @@ const vehicleSchema = new mongoose.Schema({
   },
 });
 
-
 const Vehicle = new mongoose.model("vehicle", vehicleSchema);
-
-
-
-
-
-const stsVehicleSchema = new mongoose.Schema({
-    stsId: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "STS",
-        required: true
-    },
-    vehiclenumber: {
-        type: String,
-        required: true,
-        ref : "Vehicle"
-    },
-    volumeofwaste: {
-        type: Number,
-        required: true
-    },
-    timeofarrival: {
-        type: Date,
-        required: true
-    },
-    timeofdeparture: {
-        type: Date,
-        required: true
-    }
-});
-
-const STSVehicle = mongoose.model("stsvehicle", stsVehicleSchema);
-
-
-const LandfillVehicleSchema = new mongoose.Schema({
-    
-    vehiclenumber: {
-        type: String,
-        required: true,
-        ref : "Vehicle"
-    },
-    volumeofwaste: {
-        type: Number,
-        required: true
-    },
-    timeofarrival: {
-        type: Date,
-        required: true
-    },
-    timeofdeparture: {
-        type: Date,
-        required: true
-    }
-});
-
-const LandfillVehicle = mongoose.model("landfillvehicle", LandfillVehicleSchema);
-
 
 module.exports = {
   Vehicle,
-  STSVehicle,
-  LandfillVehicle
 };

@@ -46,8 +46,7 @@ app.post("/rbac/users/:userId/roles", async function (req, res) {
   };
 
   try {
-    const newUserRole = new UserRole(data);
-    await newUserRole.save();
+    await UserRole.findOneAndUpdate({ username }, { rolename });
     return res.status(201).send("User has been assigned to role");
   } catch (error) {
     console.error(error);

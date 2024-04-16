@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const authRoutes = require('./routes/authRoutes.js');
 const rbacRoutes = require('./routes/rbacRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
+const vehicleRoutes = require('./routes/vehicleRoutes.js');
+const stsRoutes = require('./routes/stsRoutes.js');
 
 
 
@@ -46,6 +48,8 @@ app.get('/', function(req,res){
 app.use(authRoutes);
 app.use(rbacRoutes);
 app.use(userRoutes);
+app.use(vehicleRoutes);
+app.use(stsRoutes);
 
 
 app.listen(process.env.PORT || 4000,function(){

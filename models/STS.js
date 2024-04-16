@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const stsschema = new mongoose.Schema({
     wardnumber: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     capacityintonnes: {
         type: Number,
@@ -12,6 +13,9 @@ const stsschema = new mongoose.Schema({
     gpscoordinates: {
         type: [Number], 
         required: true
+    },
+    stsmanager:{
+         type: String
     }
 });
 
