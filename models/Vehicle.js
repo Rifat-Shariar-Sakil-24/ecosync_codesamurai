@@ -16,6 +16,12 @@ const vehicleSchema = new mongoose.Schema({
     required: true,
     enum: [3, 5, 7],
   },
+  vehiclestatus:{
+    type: String,
+    required : true,
+    enum: ["Idle", "Busy",],
+
+  }
 });
 
 const Vehicle = new mongoose.model("vehicle", vehicleSchema);

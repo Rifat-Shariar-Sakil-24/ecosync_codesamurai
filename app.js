@@ -14,6 +14,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
+app.use(express.static("public"));
+app.set('view engine', 'ejs');
+
 
 
 const url = 'mongodb+srv://'+process.env.CLUSTERUSERNAME+':'+process.env.CLUSTERUSERPASS+'@cluster0.qrtll88.mongodb.net/ecosync_codesamurai'
@@ -38,7 +41,11 @@ async function connectDB() {
 
 
 app.get('/', function(req,res){
-    db.collection.dropIndexes()
+    res.render('home');
+   // db.collection.dropIndexes()
+})
+app.get('/login', function(req,res){
+    res.render('login');
 })
 
 

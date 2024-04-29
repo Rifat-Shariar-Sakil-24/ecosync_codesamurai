@@ -6,6 +6,7 @@ const app = express.Router();
 
 app.post('/vehicles',async function(req,res){
     const data = req.body;
+    data.vehiclestatus = "Idle";
     try {
         const newVehicle = new Vehicle(data);
         await newVehicle.save();
