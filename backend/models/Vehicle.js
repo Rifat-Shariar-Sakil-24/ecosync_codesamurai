@@ -3,8 +3,9 @@ const mongoose = require("mongoose");
 const vehicleSchema = new mongoose.Schema({
   vechileNumber: {
     type: String,
-    required: true,
     unique: true,
+    required: true,
+    
   },
   vehicleType: {
     type: String,
