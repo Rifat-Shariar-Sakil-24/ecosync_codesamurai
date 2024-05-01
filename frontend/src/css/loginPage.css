@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-page-main-container{
+    padding: 5vh 12vw;
+    background-color: #BCE299;
+}
+
+.alert-class{
+    position: absolute;
+    top: 25px; /* Adjust this value to place the alert vertically */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; 
+}
+
+.login-page-container{
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+    width: 76vw;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.login-page-left-container{
+    height: 90vh;
+    width: 33vw;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.login-page-left-container img{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.login-page-right-container{
+    width:43vw;
+    height: 90vh;
+    border-radius: 10px;
+    padding: 5vh 5px;
+}
+
+.login-page-right-container h2{
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+
+.login-page-right-container p{
+    font-size: 12px;
+}
+
+.login-page-right-container2{
+    margin-top: 30vh;
+}
+
+
+.login-page-state-change-class{
+    display: flex;
+    justify-content: center;
+}

@@ -1,10 +1,11 @@
 import React from 'react';
 import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
 
 const App = () => {
   return (
     <div>
-      <LandingPage/>
+      <LoginPage/>
     </div>
   );
 };
