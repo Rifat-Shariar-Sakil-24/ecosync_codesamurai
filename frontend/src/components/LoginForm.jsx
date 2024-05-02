@@ -1,14 +1,20 @@
 import React from 'react';
 import { Form, Button, Input } from 'antd';
 import '../css/loginForm.css';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const LoginForm = () => {
+const LoginForm = ({setIsLoggedIn}) => {
 
+    const navigate = useNavigate();
 
     const handleSubmit = (event) =>{
         console.log(event);
+    }
+
+    const entrance = () =>{
+        setIsLoggedIn(true);
     }
 
     return (
@@ -24,7 +30,7 @@ const LoginForm = () => {
                         <Input type='password' placeholder='Password'></Input>
                     </Form.Item>
                     <Form.Item wrapperCol={{offset:5,span:16}}>
-                        <Button size='large' className='login-button' type='primary' htmlType='submit' block>Login</Button>
+                        <Button size='large' className='login-button' type='primary' htmlType='submit' block onClick={entrance}>Login</Button>
                     </Form.Item>
                 </Form>
             </div>

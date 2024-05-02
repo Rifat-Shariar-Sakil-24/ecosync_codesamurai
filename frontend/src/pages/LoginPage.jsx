@@ -3,7 +3,7 @@ import '../css/loginPage.css'
 import LoginForm from '../components/LoginForm';
 import { Alert, Modal, Button, Input, Form } from 'antd';
 
-const LoginPage = () => {
+const LoginPage = ({setIsLoggedIn}) => {
     
     const [step,setStep] = useState(0);
 
@@ -79,7 +79,7 @@ const LoginPage = () => {
                 <div className="login-page-right-container">
                     <div className="login-page-right-container2">
                         <div>
-                            <LoginForm/>
+                            <LoginForm setIsLoggedIn={setIsLoggedIn}/>
                             <div className="login-page-state-change-class">
                                 <p>Forget Password?<a onClick={changeStep}><b>Click here</b></a></p>
                             </div>

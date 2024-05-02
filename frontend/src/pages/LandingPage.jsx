@@ -6,6 +6,12 @@ import '../css/landingPage.css';
 
 
 const LandingPage = () => {
+
+    const navigate = useNavigate();
+
+    const toLoginPage = () =>{
+        navigate('/loginPage');
+    }
     
     return (
         <div>
@@ -16,7 +22,7 @@ const LandingPage = () => {
                         <img src='../../public/Images/dustbin.png'></img>
                         <div className="button-container">
                             <Space>
-                                <Button type='primary' size='large' className='login-button'>Login</Button>
+                                <Button type='primary' size='large' className='login-button' onClick={toLoginPage}>Login</Button>
                             </Space>
                             
                         </div> 
