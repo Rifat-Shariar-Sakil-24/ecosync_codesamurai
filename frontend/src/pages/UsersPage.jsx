@@ -140,7 +140,7 @@ const UsersPage = () => {
         <div>
             <div className="users-container">
                 <div className="users-container-heading">
-                    <Button size='large'>Add Tournament</Button>
+                    <Button size='large'>Add User</Button>
                 </div>
                 <div className="users-container-body">
                     <Table className='table-class' columns={columns} dataSource={dataSource}
