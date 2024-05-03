@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Table, Card, Tag, Modal, Alert } from 'antd';
+import { Button, Table, Card, Tag, Modal, Alert, Input } from 'antd';
 import '../css/userPage.css';
 
 const UsersPage = () => {
-
+    const {Search} = Input;
     const USERTYPE = {
         STSMANAGER:'sts manager',
         LANDFILLMANAGER:'landfield manager',
@@ -140,7 +140,8 @@ const UsersPage = () => {
         <div>
             <div className="users-container">
                 <div className="users-container-heading">
-                    <Button size='large'>Add User</Button>
+                    <Search placeholder='Enter name' enterButton size='large' style={{width:300,colorBgContainer:'#52BE80'}}></Search>
+                    <Button className='add-user-button' size='large'>Add User</Button>
                 </div>
                 <div className="users-container-body">
                     <Table className='table-class' columns={columns} dataSource={dataSource}

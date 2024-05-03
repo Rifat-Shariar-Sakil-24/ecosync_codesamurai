@@ -4,6 +4,12 @@
 
 .users-container-heading{
     margin: 5px 0px;
+    display: flex;
+    align-items: center;
+}
+
+.add-user-button{
+    margin-left: 5px;
 }
 
 .edit-button{
