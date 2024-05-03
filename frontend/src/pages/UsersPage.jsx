@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Table, Card, Tag, Modal, Alert, Input } from 'antd';
+import { Button, Table, Card, Tag, Modal, Alert, Input, ConfigProvider } from 'antd';
 import '../css/userPage.css';
 
 const UsersPage = () => {
@@ -79,7 +79,7 @@ const UsersPage = () => {
         }
     ]
 
-    const dataSource = [
+    const initialDataSource = [
         {
             key:'1',
             serialNo:'1',
@@ -136,11 +136,30 @@ const UsersPage = () => {
         }
     ]
 
+    const [dataSource,setDataSource] = useState(initialDataSource);
+
+    const handleSearch = (value) =>{
+        const filteredData = initialDataSource.filter((item)=>{
+             return item.userName.toLowerCase().includes(value.toLowerCase());
+        });
+        console.log(filteredData);
+        setDataSource(filteredData);
+    }
+
     return (
         <div>
             <div className="users-container">
                 <div className="users-container-heading">
-                    <Search placeholder='Enter name' enterButton size='large' style={{width:300,colorBgContainer:'#52BE80'}}></Search>
+                    
+                    <ConfigProvider
+                        theme={{
+                            token: {
+                              colorPrimary: '#52BE80',
+                            },
+                          }}
+                    >
+                        <Search onSearch={handleSearch} placeholder='Enter name...' enterButton size='large' style={{width:300,colorBgContainer:'#52BE80'}}></Search>
+                    </ConfigProvider>
                     <Button className='add-user-button' size='large'>Add User</Button>
                 </div>
                 <div className="users-container-body">
