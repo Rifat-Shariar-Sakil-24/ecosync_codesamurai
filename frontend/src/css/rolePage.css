@@ -1,0 +1,32 @@
+.role{
+    margin-right: 5px;
+}
+.admin-button{
+    background-color: #F1C40F;
+}
+.landfield-button{
+    background-color: #52BE80;
+}
+.stsmanager-button{
+    background-color: #A9CCE3;
+}
+.unassigned-button{
+    background-color: #ABB2B9;
+}
+.role-body{
+    padding: 15px 0;
+}
+.card-class{
+    width: 285px;
+    height: 150px;
+}
+
+.float-button{
+    height: 60px;
+    width: 60px;
+    bottom: 50;
+    right: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

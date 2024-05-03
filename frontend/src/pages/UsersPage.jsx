@@ -235,8 +235,7 @@ const UsersPage = () => {
                         
                     </Form>
                 </Modal>
-                <div className="users-container-heading">
-                    
+                <div className="users-container-heading">                    
                     <ConfigProvider
                         theme={{
                             token: {
