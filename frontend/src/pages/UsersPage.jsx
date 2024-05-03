@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Table, Card, Tag, Modal, Alert, Input, ConfigProvider } from 'antd';
+import { Button, Table, Card, Tag, Modal, Alert, Input, ConfigProvider, Form, Radio } from 'antd';
 import '../css/userPage.css';
 
 const UsersPage = () => {
@@ -72,7 +72,13 @@ const UsersPage = () => {
             render: (text,record)=>{
                 return (
                     <>
-                        <Button className='see-details-button' type='primary'>See Details</Button>    
+                        <Button className='see-details-button' type='primary' 
+                            onClick={()=>{
+                                
+                                seeDetails(record);
+                                
+                            }
+                        }>See Details</Button>    
                     </>
                 )    
             }
@@ -137,6 +143,33 @@ const UsersPage = () => {
     ]
 
     const [dataSource,setDataSource] = useState(initialDataSource);
+    const [visible,setVisible] = useState(false);
+    const [readOnly,setReadOnly] = useState(false);
+    const [formData,setFormData] = useState({
+        name:'',
+        email:'',
+        phone:'',
+        role:''
+    })
+
+    const seeDetails = (record) =>{
+        setFormData({
+            name:record.userName,
+            email:"shafikulrahman66@gmail.com",
+            phone:"1778054087",
+            role:record.role
+        })
+        setReadOnly(true);
+        setVisible(true);
+    }
+
+    const activeAddUserForm = () =>{
+        setVisible(true);
+    }
+
+    const inactiveAddUserForm = () =>{
+        setVisible(false);
+    }
 
     const handleSearch = (value) =>{
         const filteredData = initialDataSource.filter((item)=>{
@@ -149,6 +182,59 @@ const UsersPage = () => {
     return (
         <div>
             <div className="users-container">
+                <Modal title='Add User' width={700} visible={visible} onCancel={inactiveAddUserForm} onOk={inactiveAddUserForm}
+                    footer={
+                        [
+                            <Button key='cancel'>Cancel</Button>,
+                            <ConfigProvider
+                                theme={{
+                                    token: {
+                                    colorPrimary: '#52BE80',
+                                    },
+                                }}
+                            >
+                                <Button key='submit' type='primary'>Submit</Button>
+                            </ConfigProvider>
+                            
+                        ]
+                    }
+                >
+                    <Form labelCol={{span:4}} wrapperCol={{span:19}}>
+                        <Form.Item label='Name' name='name' rules={[
+                            {required:!readOnly,message:'Enter username'},
+                            {whitespace: true},
+                            {min: 3}
+                            ]} hasFeedback>
+                            <Input defaultValue={formData.name} placeholder='Name' readOnly={readOnly} onChange={(e) => setFormData({ ...formData, name: e.target.value })}></Input>
+                        </Form.Item>
+                        <Form.Item label='E-mail' name='email' rules={[
+                            {required:!readOnly,message:'Enter your e-mail'},
+                            {type:'email',message:'Please enter a valid e-mail'}]} hasFeedback>
+                            <Input defaultValue={formData.email} placeholder='E-mail'></Input>
+                        </Form.Item>
+                        <Form.Item label='Phone No.' name='phone' rules={[{required:!readOnly,message:'Enter phone no'},
+                            { validator: (_, value) => {
+                                const numberValue = parseInt(value, 10);
+                                if (value!=='' && isNaN(numberValue)) {
+                                    return Promise.reject('Please enter a valid number');
+                                }
+                                return Promise.resolve();
+                            }},
+                            {max:10},{min:10}
+                        ]} hasFeedback>
+                            <Input defaultValue={formData.phone} placeholder="Phone No" addonBefore='+880'></Input>
+                        </Form.Item>
+                        <Form.Item label='Role' name='role' rules={[{required:!readOnly,message:'Select a role'}]}>
+                        <Radio.Group value={formData.role}>
+                            <Radio.Button value='admin'>Admin</Radio.Button>
+                            <Radio.Button value='stsmanager'>STS Manager</Radio.Button>
+                            <Radio.Button value='landfieldmanager'>Landfield Manager</Radio.Button>
+                            <Radio.Button value='unassigned'>Unassigned</Radio.Button>
+                        </Radio.Group>
+                    </Form.Item>
+                        
+                    </Form>
+                </Modal>
                 <div className="users-container-heading">
                     
                     <ConfigProvider
@@ -160,7 +246,7 @@ const UsersPage = () => {
                     >
                         <Search onSearch={handleSearch} placeholder='Enter name...' enterButton size='large' style={{width:300,colorBgContainer:'#52BE80'}}></Search>
                     </ConfigProvider>
-                    <Button className='add-user-button' size='large'>Add User</Button>
+                    <Button className='add-user-button' size='large' onClick={activeAddUserForm}>Add User</Button>
                 </div>
                 <div className="users-container-body">
                     <Table className='table-class' columns={columns} dataSource={dataSource}
