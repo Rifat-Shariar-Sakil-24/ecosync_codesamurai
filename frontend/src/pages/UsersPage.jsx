@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Table, Card, Tag, Modal, Alert, Input, ConfigProvider, Form, Radio } from 'antd';
 import '../css/userPage.css';
+import UserDetails from '../components/UserDetails';
 
 const UsersPage = () => {
     const {Search} = Input;
@@ -148,19 +149,19 @@ const UsersPage = () => {
     const [formData,setFormData] = useState({
         name:'',
         email:'',
-        phone:'',
+        phoneNo:'',
         role:''
-    })
+    });
+    const [detailsVisible,setDetailsVisible] = useState(false);
 
     const seeDetails = (record) =>{
         setFormData({
             name:record.userName,
             email:"shafikulrahman66@gmail.com",
-            phone:"1778054087",
-            role:record.role
-        })
-        setReadOnly(true);
-        setVisible(true);
+            phoneNo:"01778054087",
+            role:record.role.toUpperCase()
+        });
+        setDetailsVisible(true);
     }
 
     const activeAddUserForm = () =>{
@@ -169,6 +170,10 @@ const UsersPage = () => {
 
     const inactiveAddUserForm = () =>{
         setVisible(false);
+    }
+
+    const hideDetails = () =>{
+        setDetailsVisible(false);
     }
 
     const handleSearch = (value) =>{
@@ -182,6 +187,21 @@ const UsersPage = () => {
     return (
         <div>
             <div className="users-container">
+                <Modal visible={detailsVisible} onCancel={hideDetails} onOk={hideDetails} title="User Details" 
+                    footer={
+                        <ConfigProvider
+                                theme={{
+                                    token: {
+                                    colorPrimary: '#52BE80',
+                                    },
+                                }}
+                            >
+                                <Button type='primary' onClick={hideDetails}>OK</Button>
+                        </ConfigProvider>
+                    }
+                >
+                    <UserDetails record={formData}/>
+                </Modal>
                 <Modal title='Add User' width={700} visible={visible} onCancel={inactiveAddUserForm} onOk={inactiveAddUserForm}
                     footer={
                         [
