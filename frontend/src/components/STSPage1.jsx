@@ -94,32 +94,32 @@ const STSPageHeading1 = () => {
     return (
         <div>
             <div className="users-container-heading">                    
-                    <Select placeholder="Select District" value={selectedDistrict} onChange={(value)=>handleSearch(value)} size='large' style={{width:300}}>
-                        {
-                            districts.map((district,index)=>{
-                                return <Select.Option key={index} value={district}>{district.toUpperCase()}</Select.Option>
-                            })
-                        }
-                    </Select>
-                    <Button size='large' onClick={()=>{
-                        setSelectedDistrict(null);
-                        setDataSource(initialDataSource);
-                    }} >Reset</Button>
-                    <Button className='add-user-button' size='large'>Create New STS</Button>
-                </div>
-                <div className="users-container-body">
-                    <Table className='table-class' columns={columns} dataSource={dataSource}
-                    scroll={{
-                        y: 430,
-                    }}
-                    pagination={{
-                        showSizeChanger: true,
-                        style:{
-                            marginRight:'15px'
-                        }
-                    }}
-                    ></Table>
-                </div>
+                <Select placeholder="Select District" value={selectedDistrict} onChange={(value)=>handleSearch(value)} size='large' style={{width:300}}>
+                    {
+                        districts.map((district,index)=>{
+                            return <Select.Option key={index} value={district}>{district.toUpperCase()}</Select.Option>
+                        })
+                    }
+                </Select>
+                <Button size='large' onClick={()=>{
+                    setSelectedDistrict(null);
+                    setDataSource(initialDataSource);
+                }} >Reset</Button>
+                <Button className='add-user-button' size='large'>Create New STS</Button>
+            </div>
+            <div className="users-container-body">
+                <Table className='table-class' columns={columns} dataSource={dataSource}
+                scroll={{
+                    y: 430,
+                }}
+                pagination={{
+                    showSizeChanger: true,
+                    style:{
+                        marginRight:'15px'
+                    }
+                }}
+                ></Table>
+            </div>
         </div>
     );
 };

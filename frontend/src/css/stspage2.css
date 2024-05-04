@@ -1,0 +1,18 @@
+.sts-page-2{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.users-container-heading1{
+    display: flex;
+}
+
+.users-container-heading1 h3{
+    margin-right: 45px;
+}
+
+.users-container-heading-3{
+    margin-top: 10px;
+    display: flex;
+}
