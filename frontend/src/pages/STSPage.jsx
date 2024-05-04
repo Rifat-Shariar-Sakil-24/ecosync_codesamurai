@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import STSPage1 from '../components/STSPage1';
 
 const STSPage = () => {
+
     return (
         <div>
-            <h1>STS Page</h1>
+            <div className="users-container">
+                <STSPage1/>
+            </div>
         </div>
     );
 };
