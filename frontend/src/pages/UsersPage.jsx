@@ -60,7 +60,7 @@ const UsersPage = () => {
             render: (text,record)=>{
                 return (
                     <>
-                        <Button className='edit-button'>Edit</Button>  
+                        <Button className='edit-button' onClick={()=>editInformation(record)}>Edit</Button>  
                         <Button className='delete-button' type='primary' danger>Delete</Button> 
                     </>
                 )    
@@ -73,13 +73,7 @@ const UsersPage = () => {
             render: (text,record)=>{
                 return (
                     <>
-                        <Button className='see-details-button' type='primary' 
-                            onClick={()=>{
-                                
-                                seeDetails(record);
-                                
-                            }
-                        }>See Details</Button>    
+                        <Button className='see-details-button' type='primary' onClick={()=>seeDetails(record)}>See Details</Button>    
                     </>
                 )    
             }
@@ -153,6 +147,7 @@ const UsersPage = () => {
         role:''
     });
     const [detailsVisible,setDetailsVisible] = useState(false);
+    const [detailsReadOnly,setDetailsReadOnly] = useState(false);
 
     const seeDetails = (record) =>{
         setFormData({
@@ -161,6 +156,18 @@ const UsersPage = () => {
             phoneNo:"01778054087",
             role:record.role.toUpperCase()
         });
+        setDetailsReadOnly(true);
+        setDetailsVisible(true);
+    }
+
+    const editInformation = (record) =>{
+        setFormData({
+            name:record.userName,
+            email:"shafikulrahman66@gmail.com",
+            phoneNo:"01778054087",
+            role:record.role.toUpperCase()
+        });
+        setDetailsReadOnly(false);
         setDetailsVisible(true);
     }
 
@@ -173,6 +180,7 @@ const UsersPage = () => {
     }
 
     const hideDetails = () =>{
+        setFormData(formData);
         setDetailsVisible(false);
     }
 
@@ -188,7 +196,9 @@ const UsersPage = () => {
         <div>
             <div className="users-container">
                 <Modal visible={detailsVisible} onCancel={hideDetails} onOk={hideDetails} title="User Details" 
-                    footer={
+                    width={700}
+                    footer={[
+                        !detailsReadOnly && <Button onClick={hideDetails}>Cancel</Button>,
                         <ConfigProvider
                                 theme={{
                                     token: {
@@ -198,9 +208,9 @@ const UsersPage = () => {
                             >
                                 <Button type='primary' onClick={hideDetails}>OK</Button>
                         </ConfigProvider>
-                    }
+                    ]}
                 >
-                    <UserDetails record={formData}/>
+                    <UserDetails detailsReadOnly={detailsReadOnly} record={formData}/>
                 </Modal>
                 <Modal title='Add User' width={700} visible={visible} onCancel={inactiveAddUserForm} onOk={inactiveAddUserForm}
                     footer={
@@ -245,13 +255,13 @@ const UsersPage = () => {
                             <Input defaultValue={formData.phone} placeholder="Phone No" addonBefore='+880'></Input>
                         </Form.Item>
                         <Form.Item label='Role' name='role' rules={[{required:!readOnly,message:'Select a role'}]}>
-                        <Radio.Group value={formData.role}>
-                            <Radio.Button value='admin'>Admin</Radio.Button>
-                            <Radio.Button value='stsmanager'>STS Manager</Radio.Button>
-                            <Radio.Button value='landfieldmanager'>Landfield Manager</Radio.Button>
-                            <Radio.Button value='unassigned'>Unassigned</Radio.Button>
-                        </Radio.Group>
-                    </Form.Item>
+                            <Radio.Group value={formData.role}>
+                                <Radio.Button value='admin'>Admin</Radio.Button>
+                                <Radio.Button value='stsmanager'>STS Manager</Radio.Button>
+                                <Radio.Button value='landfieldmanager'>Landfield Manager</Radio.Button>
+                                <Radio.Button value='unassigned'>Unassigned</Radio.Button>
+                            </Radio.Group>
+                        </Form.Item>
                         
                     </Form>
                 </Modal>
@@ -265,7 +275,7 @@ const UsersPage = () => {
                     >
                         <Search onSearch={handleSearch} placeholder='Enter name...' enterButton size='large' style={{width:300,colorBgContainer:'#52BE80'}}></Search>
                     </ConfigProvider>
-                    <Button className='add-user-button' size='large' onClick={activeAddUserForm}>Add User</Button>
+                    <Button className='add-user-button' size='large' onClick={activeAddUserForm}>Create New User</Button>
                 </div>
                 <div className="users-container-body">
                     <Table className='table-class' columns={columns} dataSource={dataSource}
