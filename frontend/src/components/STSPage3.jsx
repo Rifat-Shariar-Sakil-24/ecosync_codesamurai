@@ -1,10 +1,11 @@
 import {React, useState} from 'react';
-import { Button, Select, Table } from 'antd';
+import { Button, Select, Table, Input, ConfigProvider } from 'antd';
 import '../css/stspage2.css';
 
-const STSPage2 = (props) => {
+const STSPage3 = () => {
+
+    const {Search} = Input;
     const vehicles = [101,102,103];
-    const [selectedVehicle,setSelectedVehicle] = useState(null);
 
     const columns = [
         {
@@ -15,18 +16,17 @@ const STSPage2 = (props) => {
             align:'center',
         },
         {
-            title:'Vehicle No.',
-            dataIndex:'vehicleNo',
-            key:'vehicleNo',
+            title:'Name',
+            dataIndex:'name',
+            key:'name',
             align: 'center'
         },
         {
-            title:'Vehicle Status',
-            dataIndex:'vehicleStatus',
-            key:'vehicleStatus',
+            title:'Phone No.',
+            dataIndex:'phoneNo',
+            key:'phoneNo',
             align:'center'
-        },
-        
+        }, 
         {
             title:'Update/Delete',
             dataIndex:'updateOrDelete',
@@ -58,13 +58,8 @@ const STSPage2 = (props) => {
     const initialDataSource = [
         {
             serialNo:1,
-            vehicleNo:101,
-            vehicleStatus:"On Road",
-        },
-        {
-            serialNo:2,
-            vehicleNo:102,
-            vehicleStatus:"Idle",
+            name:"Rifat Shahriar Sakil",
+            phoneNo:"0123456789",
         }
     ];
     const [dataSource,setDataSource] = useState(initialDataSource);
@@ -73,19 +68,13 @@ const STSPage2 = (props) => {
 
     }
 
-    const nextPage = () =>{
-        props.setStsPage(prev => prev+1);
-    }
-
-    const handleSearch = (value) => {
-        setSelectedVehicle(value);
-        const filteredData = initialDataSource.filter((item) => {
-            return item.vehicleNo === value;
+    const handleSearch = (value) =>{
+        const filteredData = initialDataSource.filter((item)=>{
+             return item.name.toLowerCase().includes(value.toLowerCase());
         });
         console.log(filteredData);
         setDataSource(filteredData);
     }
-    
 
     return (
         <div>
@@ -96,40 +85,37 @@ const STSPage2 = (props) => {
                 </div>
                 <div className="users-container-heading-2">
                     <Button className='role admin-button' size='large'>VEHICLES</Button>
-                    <Button className='role stsmanager-button' size='large' onClick={nextPage}>STS MANAGER</Button>
+                    <Button className='role stsmanager-button' size='large'>STS MANAGER</Button>
                     <Button className='role landfield-button' size='large'>BILLS</Button>
-                    <Button className='role unassigned-button' size='large'>DATA HISTORY</Button>
                 </div>
                 <div className="users-container-heading-3">
-                    <Select placeholder="Select Vehicle" value={selectedVehicle} size='large' style={{width:300}} onChange={(value)=>handleSearch(value)}>
-                        {
-                            vehicles.map((vehicle,index)=>{
-                                return <Select.Option key={index} value={vehicle}>{vehicle}</Select.Option>
-                            })
-                        }
-                    </Select>
-                    <Button size='large' onClick={()=>{
-                        setDataSource(initialDataSource);
-                        setSelectedVehicle(null);
-                    }} >Reset</Button>
-                    <Button className='add-user-button' size='large'>Assign New Vehicle</Button>
+                    <ConfigProvider
+                            theme={{
+                                token: {
+                                colorPrimary: '#52BE80',
+                                },
+                            }}
+                        >
+                        <Search onSearch={handleSearch} placeholder='Enter name...' enterButton size='large' style={{width:300,colorBgContainer:'#52BE80'}}></Search>
+                    </ConfigProvider>
+                    <Button className='add-user-button' size='large'>Add Manager</Button>
                 </div>
             </div>
             <div className="users-container-body">
-                    <Table className='table-class' columns={columns} dataSource={dataSource}
-                        scroll={{
-                            y: 430,
-                        }}
-                        pagination={{
-                            showSizeChanger: true,
-                            style:{
-                                marginRight:'15px'
-                            }
-                        }}
-                    ></Table>
+                <Table className='table-class' columns={columns} dataSource={dataSource}
+                    scroll={{
+                        y: 430,
+                    }}
+                    pagination={{
+                        showSizeChanger: true,
+                        style:{
+                            marginRight:'15px'
+                        }
+                    }}
+                ></Table>
             </div>
         </div>
     );
 };
 
-export default STSPage2;
+export default STSPage3;

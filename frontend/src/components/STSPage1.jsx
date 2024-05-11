@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ConfigProvider, Input, Button, Select, Table } from 'antd';
 
-const STSPageHeading1 = () => {
+const STSPage1 = (props) => {
     const {Search} = Input;
     const districts = ['Dhaka','Rajshahi','Chadpur','Barishal'];
 
@@ -58,7 +58,7 @@ const STSPageHeading1 = () => {
             render: (text,record)=>{
                 return (
                     <>
-                        <Button className='see-details-button' type='primary' onClick={()=>seeDetails(record)}>See Details</Button>    
+                        <Button className='see-details-button' type='primary' onClick={nextPage}>See Details</Button>    
                     </>
                 )    
             }
@@ -87,10 +87,19 @@ const STSPageHeading1 = () => {
         setSelectedDistrict(value)
         const filteredData = initialDataSource.filter((item)=>{
             return item.district.toLowerCase().includes(value.toLowerCase());
-       });
+        });
        console.log(filteredData);
        setDataSource(filteredData);
     }
+
+    const nextPage = () =>{
+        props.setStsPage(prev => prev+1);
+    }
+
+    const prevPage = () =>{
+
+    }
+
     return (
         <div>
             <div className="users-container-heading">                    
@@ -124,4 +133,4 @@ const STSPageHeading1 = () => {
     );
 };
 
-export default STSPageHeading1;
+export default STSPage1;
