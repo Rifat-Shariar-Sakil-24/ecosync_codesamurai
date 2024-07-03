@@ -26,3 +26,6 @@ Some screens are given below:
 ![screenshot](frontend/images/13.jpeg)
 ![screenshot](frontend/images/14.jpeg)
 ![screenshot](frontend/images/15.jpeg)
+
+
+## For Developer Mode, like cloning and setting up locally, required information will be provided soon
