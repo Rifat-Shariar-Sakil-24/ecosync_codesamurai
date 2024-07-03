@@ -4,43 +4,36 @@ const { STS } = require("./STS");
 
 const stsVehicleSchema = new mongoose.Schema({
   stsId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "STS",
-    required: true,
-
-    validate: {
-        validator: async function (value) {
-          const STSWardNumber = await STS.findOne({ wardnumber: value });
-          return !!STSWardNumber;
-        },
-        message: "STS Ward Number with this name does not exist.",
-      },
+    required: true,zz
   },
-  vehiclenumber: {
-    type: String,
-    required: true,
-    unique:true,
-    validate: {
-      validator: async function (value) {
-        const vehicle = await Vehicle.findOne({ vechilenumber: value });
-        return !!vehicle;
-      },
-      message: "Vehicle with this number does not exist.",
-    },
-    
+  vehicleId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Vehicle",
+    required: true, 
+    unique: true
   },
-  volumeofwaste: {
+  volumeofWaste: {
     type: Number,
     required: true,
   },
-  timeofarrival: {
+  timeOfArrival: {
     type: Date,
     required: true,
   },
-  timeofdeparture: {
+  timeOfDeparture: {
     type: Date,
     required: true,
   },
+  vehiclePosition: {
+    type: String,
+    enum : ["on STS", "on Landfill", "on Road"]
+  },
+  destinedLandfill : {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Landfill",
+  }
 });
 
 const STSVehicle = mongoose.model("stsvehicle", stsVehicleSchema);

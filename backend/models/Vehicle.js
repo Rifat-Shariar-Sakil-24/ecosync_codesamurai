@@ -24,6 +24,11 @@ const vehicleSchema = new mongoose.Schema({
   fuelCostPerKilometerLoaded:{
     type: Number,
     required: true
+  },
+  vehicleStatus: {
+     type: String,
+     enum: ["assigned", "free"],
+     default: "free",
   }
 
 });

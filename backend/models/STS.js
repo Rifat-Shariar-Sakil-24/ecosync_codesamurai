@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { User } = require("./user");
 
 const stsschema = new mongoose.Schema({
     wardNumber: {
@@ -16,14 +17,7 @@ const stsschema = new mongoose.Schema({
     },
     stsManagers:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        validate: {
-        validator: async function(stsManager) {
-            const permission = await Permission.findOne({ permissionname: permissionname });
-            return !!permission; 
-        },
-        message: props => `${props.value} is not a valid permissionname`
-    }
+         ref: 'User'
       },
       
     ],

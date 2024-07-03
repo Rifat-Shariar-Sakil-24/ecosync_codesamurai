@@ -41,8 +41,9 @@ async function connectDB() {
 
 
 app.get('/', function(req,res){
-    res.render('home');
+   // res.render('home');
    // db.collection.dropIndexes()
+   res.status(201)
 })
 app.get('/login', function(req,res){
     res.render('login');
