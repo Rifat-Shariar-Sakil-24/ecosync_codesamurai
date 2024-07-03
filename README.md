@@ -11,4 +11,4 @@ The project is divided into two main directories:
 - ```/backend``` - Contains the Express.js backend server, which uses MongoDB as the database.
 
 Some screens are given below:
-![screenshot](F:\ecosync_codesamurai\images\1.jpeg)
+![screenshot](F:/ecosync_codesamurai/images/1.jpeg)
