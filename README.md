@@ -11,4 +11,18 @@ The project is divided into two main directories:
 - ```/backend``` - Contains the Express.js backend server, which uses MongoDB as the database.
 
 Some screens are given below:
-![screenshot](images/1.jpeg)
+![screenshot](frontend/images/1.jpeg)
+![screenshot](frontend/images/2.jpeg)
+![screenshot](frontend/images/3.jpeg)
+![screenshot](frontend/images/4.jpeg)
+![screenshot](frontend/images/5.jpeg)
+![screenshot](frontend/images/6.jpeg)
+![screenshot](frontend/images/7.jpeg)
+![screenshot](frontend/images/8.jpeg)
+![screenshot](frontend/images/9.jpeg)
+![screenshot](frontend/images/10.jpeg)
+![screenshot](frontend/images/11.jpeg)
+![screenshot](frontend/images/12.jpeg)
+![screenshot](frontend/images/13.jpeg)
+![screenshot](frontend/images/14.jpeg)
+![screenshot](frontend/images/15.jpeg)
